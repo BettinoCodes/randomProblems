@@ -1,0 +1,71 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+vector<int> merge(vector<int> l1, vector<int> l2) {
+    int n = l1.size();
+    int m = l2.size();
+
+    int ptr1 = 0;
+    int ptr2 = 0;
+
+    vector<int> newNumbers;
+
+    while (ptr1 < n && ptr2 < m) {
+        if (l1[ptr1] < l2[ptr2]) {
+            newNumbers.push_back(l1[ptr1]);
+            ptr1 += 1;
+        } else {
+            newNumbers.push_back(l2[ptr2]);
+            ptr2 += 1;
+        }
+    }
+
+    // Copy the remaining elements from l1 and l2
+    while (ptr1 < n) {
+        newNumbers.push_back(l1[ptr1]);
+        ptr1 += 1;
+    }
+
+    while (ptr2 < m) {
+        newNumbers.push_back(l2[ptr2]);
+        ptr2 += 1;
+    }
+
+    return newNumbers;
+}
+
+vector<int> partitionList(vector<int> numbers, int start, int end) {
+    if (start == end) {
+        // Return a vector with a single element
+        return {numbers[start]};
+    }
+
+    int mid = start + (end - start) / 2;
+    vector<int> left = partitionList(numbers, start, mid);
+    vector<int> right = partitionList(numbers, mid + 1, end);
+    return merge(left, right);
+}
+
+vector<int> mergeSort(vector<int> numbers) {
+    if (numbers.empty()) {
+        return {};
+    }
+
+    return partitionList(numbers, 0, numbers.size() - 1);
+}
+
+int main() {
+    vector<int> lists = {12, 11, 13, 5, 6, 7};
+
+    vector<int> sortedNumbers = mergeSort(lists);
+
+    cout << "Sorted numbers: ";
+    for (int num : sortedNumbers) {
+        cout << num << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
