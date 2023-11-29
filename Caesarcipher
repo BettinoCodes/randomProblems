@@ -1,0 +1,77 @@
+#my own code the ceasar cipher with shifting the letters by k value
+
+string capShift(int k){
+    string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    string capEmptyStr = "";
+    int start = 0 + k;
+    
+    while(capEmptyStr.size() != 26){
+        if(start == alphabet.size()){
+            start = 0;
+            capEmptyStr += alphabet[start];
+            start++;
+        }
+        else{
+            capEmptyStr += alphabet[start];
+            start++;
+        }
+    }
+    return capEmptyStr;
+}
+string lowerShift(int k){
+    string alphabet = "abcdefghijklmnopqrstuvwxyz";
+    string lowerEmptyStr = "";
+    int start = 0 + k;
+    
+    while(lowerEmptyStr.size() != 26){
+        if(start == alphabet.size()){
+            start = 0;
+            lowerEmptyStr += alphabet[start];
+            start++;
+        }
+        else{
+            lowerEmptyStr += alphabet[start];
+            start++;
+        }
+    }
+    return lowerEmptyStr;
+}
+string caesarCipher(string s, int k){
+    string alphabet = "abcdefghijklmnopqrstuvwxyz";
+    string capAlpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    int start = 0 + k;
+    unordered_map<char, char> myMap;
+    string new_s = "";
+    
+    string emptyLow = lowerShift(k);
+    string emptyCap = capShift(k);
+    
+    int iter1 = 0;
+    
+    while (iter1 < alphabet.size()){
+        myMap[alphabet[iter1]] = emptyLow[iter1];
+        iter1++;
+    }
+    
+    int iter2 = 0;
+    while(iter2< capAlpha.size()){
+        myMap[capAlpha[iter2]] = emptyCap[iter2];
+        iter2++;
+    }
+    
+    for (char i: s){
+        if (myMap.find(i) != myMap.end()){
+            new_s += myMap[i];
+        }
+        else{
+            new_s += i;
+        }
+    }
+    
+    for(auto comb: myMap){
+        cout << comb.first << " " << comb.second << endl;
+    }
+    
+    return new_s;
+    
+}
