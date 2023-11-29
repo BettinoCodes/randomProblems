@@ -39,7 +39,6 @@ string lowerShift(int k){
 string caesarCipher(string s, int k){
     string alphabet = "abcdefghijklmnopqrstuvwxyz";
     string capAlpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    int start = 0 + k;
     unordered_map<char, char> myMap;
     string new_s = "";
     
