@@ -1,0 +1,66 @@
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+vector<string> addPriceStr(string sentence) {
+    string price;
+    string mystring;
+    vector<string> prices;
+    int start;
+    int end;
+    for (int i = 0; i < sentence.size() - 1; i++) {
+        if (sentence[i] == '$') {
+            start = i;
+            end = i;
+
+            while (sentence[end] != ' ') {
+                end++;
+                price += sentence[end];
+            }
+            double perprc = stof(price) * 0.85;
+            mystring = to_string(perprc);
+            string submystr = mystring.substr(0, 4);
+            prices.push_back(submystr);
+            price.clear();
+            i = end;
+        }
+    }
+    return prices;
+}
+    
+string sumplus(string sentence, vector<string> price){
+    string newstr = "";
+    int priceit = 0;
+    for (int it = 0; it < sentence.size(); it++){
+        if (sentence[it] == '$'){
+            int i = 0;
+            while (i < price[priceit].size()){
+                newstr += price[priceit][i];
+                    i++;
+                }
+                priceit += 1;
+        }
+        else{
+            newstr += sentence[it];
+        }
+    }
+    return newstr;
+}
+
+
+int main() {
+    string input = "The price is $10.50 and $17 and $16.78 for two items.";
+    vector<string> result = addPriceStr(input);
+    for (string i: result){
+        cout << i << " ";
+    }
+    string res = sumplus(input, result);
+    cout << res;
+    
+
+    return 0;
+}
+
