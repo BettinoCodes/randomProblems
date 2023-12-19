@@ -42,6 +42,11 @@ string sumplus(string sentence, vector<string> price){
                     i++;
                 }
                 priceit += 1;
+                
+                while (sentence[it] != ' '){
+                    it++;
+                }
+                newstr += ' ';
         }
         else{
             newstr += sentence[it];
@@ -57,13 +62,11 @@ int main() {
     for (string i: result){
         cout << i << " ";
     }
+    cout << endl;
+    
     string res = sumplus(input, result);
     cout << res;
     
 
     return 0;
 }
-
-    return 0;
-}
-
