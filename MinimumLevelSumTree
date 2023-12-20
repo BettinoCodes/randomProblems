@@ -1,0 +1,97 @@
+I wanted to practice using data structures to help solve this problem, in this one I thought of using a set of pairs in a vector to keep track of the levels in the tree.
+I also practiced splitting up the problem into sub problems using functions which would make the problem easier to solve, understand and more organized.
+
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <climits>
+
+using namespace std;
+
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+};
+
+int levelSearch(vector<pair<int, int>> result) {
+    int min = result[0].first;
+    int minLevel;
+
+    for (auto pair : result) {
+        if (pair.first < min) {
+            min = pair.first;
+            minLevel = pair.second;
+        }
+    }
+
+    return minLevel;
+}
+
+vector<pair<int, int>> levelSet(vector<pair<int, int>> result) {
+    int level = 0;
+    for (auto pair : result) {
+        pair.second = level;
+        level++;  
+    }
+    return result;
+}
+
+int sumLevelMin(TreeNode* root) {
+    if (!root) {
+        return 0;
+    }
+
+    vector<pair<int, int>> sumLevels;
+
+    queue<TreeNode*> q;
+    q.push(root);
+
+    while (!q.empty()) {
+        int sum = 0;
+        int size = q.size();
+
+        for (int i = 0; i < size; i++) {
+            TreeNode* curr = q.front();
+            q.pop();
+
+            sum += curr->val;
+
+            if (curr->left) {
+                q.push(curr->left);
+            }
+
+            if (curr->right) {
+                q.push(curr->right);
+            }
+        }
+
+        sumLevels.push_back({sum, 0});
+    }
+    
+    sumLevels = levelSet(sumLevels);
+    int minimum = levelSearch(sumLevels);
+    
+    
+    return minimum;
+}
+
+
+
+
+int main() {
+    
+    TreeNode* root = new TreeNode(34);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(1);
+    root->left->right = new TreeNode(3);
+
+    int result = sumLevelMin(root);
+    cout << "Level: " << result;
+
+
+
+    return 0;
+}
