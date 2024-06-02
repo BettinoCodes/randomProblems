@@ -1,4 +1,5 @@
-#should review over using a skip with a for loop maybe
+#should review over using a skip with a for loop 
+#I decided to store the number of expected skips in the string from the length of it in a list 
 purchase = "I went to the store and bought $10.23 for milk and $3.80 for cheese"
 
 #reduce by 80%
