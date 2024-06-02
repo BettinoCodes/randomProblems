@@ -32,7 +32,29 @@ while y < len(purchase):
   else:
     new_strng += purchase[y]
     y += 1
-    
+
+#second method with the for loop, we learned that even if you increment the value of why iterating through a string it still counts it as the parts you are skipping
+#to and keeps those characters, unless you use to continue to move ahead,now with the for loop we control the amount of continues by letting it know how many
+#values is meant to be iterated before the space, and increment the space in the for loop if there's a skip available
+
+#SOLUTION WITH FOR LOOP
+# new_strng = ''
+# n = 0
+# skip = 0
+# for y in range(len(purchase)):
+#     if skip > 0:
+#         skip -= 1
+#         continue
+#     else:
+#         if purchase[y] == '$':
+#             start = y + 1
+#             new_strng += '$' + list_of_prices[n]
+#             n += 1
+#             while purchase[start] != ' ':
+#                 skip += 1
+#                 start += 1
+#         else:
+#             new_strng += purchase[y]
 print(list_of_prices)
 print(new_strng)
 
