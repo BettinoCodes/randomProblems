@@ -1,0 +1,38 @@
+#should review over using a skip with a for loop maybe
+purchase = "I went to the store and bought $10.23 for milk and $3.80 for cheese"
+
+#reduce by 80%
+list_of_prices = []
+list_of_lenght_skip = []
+
+for i in range(len(purchase)):
+  if purchase[i] == '$':
+    prices = ''
+    start = i + 1
+    while purchase[start] != ' ':
+      prices += purchase[start]
+      start += 1
+    length = len(prices)
+    list_of_lenght_skip.append(length)
+    fltprce = float(prices) * .80
+    newprice = round(fltprce, 2)
+    list_of_prices.append(str(newprice))
+    i = start
+
+new_strng = ''
+n = 0
+y = 0
+while y < len(purchase):
+  if purchase[y] == '$':
+    y += 1
+    new_strng += '$' + list_of_prices[n]
+    y += list_of_lenght_skip[n]
+    n += 1
+  else:
+    new_strng += purchase[y]
+    y += 1
+    
+print(list_of_prices)
+print(new_strng)
+
+print(10.00 * .80)
